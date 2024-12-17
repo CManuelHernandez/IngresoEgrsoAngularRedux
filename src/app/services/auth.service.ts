@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,12 @@ export class AuthService {
 
   logout() {
     return this.auth.signOut();
+  }
+
+  isAuth() {
+    return new Observable((subscriber) => {
+      const unsubscribe = this.auth.onAuthStateChanged(subscriber);
+      return { unsubscribe };
+    }).pipe(map((fUser) => fUser != null));
   }
 }
