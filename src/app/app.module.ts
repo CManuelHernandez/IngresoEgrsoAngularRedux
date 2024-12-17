@@ -14,6 +14,11 @@ import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
+import { enviroment } from '../environments/environments';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,21 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
     SidebarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
-  providers: [],
+  providers: [
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'ingreso-egreso-app-3043e',
+        appId: '1:138711401459:web:69a8fb788ea46baad34886',
+        storageBucket: 'ingreso-egreso-app-3043e.firebasestorage.app',
+        apiKey: 'AIzaSyCQxLFunbk4Mn-v9slVWg9Wr5DiuHl4iK4',
+        authDomain: 'ingreso-egreso-app-3043e.firebaseapp.com',
+        messagingSenderId: '138711401459',
+        measurementId: 'G-FCY4MQ4YXK',
+      })
+    ),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
