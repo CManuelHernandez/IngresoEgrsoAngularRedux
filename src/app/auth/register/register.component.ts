@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
     this.authService
       .crearUsuario(nombre, correo, password)
       .then((credenciales: any) => {
-        console.log('Usuario creado:', credenciales);
         this.router.navigate(['/']);
       })
       .catch((err: any) => console.error('Error al crear usuario:', err));
