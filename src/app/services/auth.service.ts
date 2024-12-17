@@ -11,6 +11,13 @@ import {
 export class AuthService {
   constructor(private auth: Auth) {}
 
+  initAuthListener() {
+    this.auth.onAuthStateChanged((user) => {
+      console.log(user?.email);
+      console.log(user?.uid);
+    });
+  }
+
   crearUsuario(usuario: string, correo: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, correo, password);
     // return this.auth.createUserWithEmailAndPassword(correo, password)
