@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,8 +17,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
+import { StoreModule } from '@ngrx/store';
 import { enviroment } from '../environments/environments';
+import { appReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,13 @@ import { enviroment } from '../environments/environments';
     NavbarComponent,
     SidebarComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
   providers: [
     provideFirebaseApp(() =>
       initializeApp({
